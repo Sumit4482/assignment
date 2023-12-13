@@ -6,9 +6,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({
-    super.key,
-  });
+  const MyApp();
 
   @override
   Widget build(BuildContext context) {
@@ -19,21 +17,18 @@ class MyApp extends StatelessWidget {
 }
 
 class MyPageView extends StatefulWidget {
-  const MyPageView({
-    super.key,
-  });
+  const MyPageView();
 
   @override
-  // ignore: library_private_types_in_public_api
   _MyPageViewState createState() => _MyPageViewState();
 }
 
 class _MyPageViewState extends State<MyPageView> {
   final PageController _pageController = PageController();
-  final int _maxPage = 2; // Set the maximum page count here
+  final int _maxPage = 2;
   int _currentPage = 0;
   bool _isSoundOn = true;
-  bool _isTimerRunning = false; // Added variable to track timer state
+  bool _isTimerRunning = false;
 
   late List<Timer> _timers;
   late List<int> _countdowns;
@@ -59,7 +54,6 @@ class _MyPageViewState extends State<MyPageView> {
       'You can eat until you feel full'
     ];
     _pageTitles = ['Time to eat mindfully', 'Break Time', 'Finish your meal'];
-    // Do not start the countdown for the first page automatically
   }
 
   void startCountdown(int pageIndex) {
@@ -77,7 +71,6 @@ class _MyPageViewState extends State<MyPageView> {
       }
     });
 
-    // Change the title and subtitle when the countdown starts
     setState(() {
       if (pageIndex == 0) {
         _pageTitles[pageIndex] = 'Nom Nom';
@@ -97,11 +90,8 @@ class _MyPageViewState extends State<MyPageView> {
           duration: const Duration(milliseconds: 500),
           curve: Curves.ease,
         );
-        // Do not automatically start the countdown for the new page
-        // Reset the countdown for the new page
         _countdowns[_currentPage] = 30;
-        _isTimerRunning =
-            false; // Reset timer state when moving to the next page
+        _isTimerRunning = false;
       }
     });
   }
@@ -116,7 +106,6 @@ class _MyPageViewState extends State<MyPageView> {
     setState(() {
       _isSoundOn = !_isSoundOn;
     });
-    // Add logic here to handle sound turning on/off
   }
 
   void nextPage() {
@@ -127,10 +116,8 @@ class _MyPageViewState extends State<MyPageView> {
       );
       setState(() {
         _currentPage++;
-        // Reset the countdown for the new page
         _countdowns[_currentPage] = 30;
-        _isTimerRunning =
-            false; // Reset timer state when moving to the next page
+        _isTimerRunning = false;
       });
     }
   }
@@ -152,7 +139,6 @@ class _MyPageViewState extends State<MyPageView> {
       ),
       body: Column(
         children: [
-          // Dot Indicator
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
@@ -171,7 +157,6 @@ class _MyPageViewState extends State<MyPageView> {
               ),
             ),
           ),
-          // PageView
           Expanded(
             child: PageView(
               controller: _pageController,
@@ -217,8 +202,8 @@ class _MyPageViewState extends State<MyPageView> {
                 children: <Widget>[
                   Center(
                     child: Container(
-                      width: 320.0, // Adjust the size as needed
-                      height: 320.0, // Adjust the size as needed
+                      width: 320.0,
+                      height: 320.0,
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                         color: Colors.white10,
@@ -227,8 +212,8 @@ class _MyPageViewState extends State<MyPageView> {
                   ),
                   Center(
                     child: Container(
-                      width: 240.0, // Adjust the size as needed
-                      height: 240.0, // Adjust the size as needed
+                      width: 240.0,
+                      height: 240.0,
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                         color: Colors.white,
@@ -297,10 +282,8 @@ class _MyPageViewState extends State<MyPageView> {
           child: ElevatedButton(
             onPressed: () {
               if (_isTimerRunning) {
-                // If the timer is running, pause it
                 toggleTimerPause(_currentPage);
               } else {
-                // If the timer is not running, start it
                 startCountdown(_currentPage);
               }
             },
